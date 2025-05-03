@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="mb-4">Explore Ghana Blog</h1>
+            <p class="lead">Share your experiences and read about others' adventures in Ghana.</p>
+            
+            {% if current_user.is_authenticated %}
+            <div class="mb-4">
+                <a href="{{ url_for('new_post') }}" class="btn btn-primary">Create New Post</a>
+            </div>
+            {% endif %}
+            
+            {% for post in posts %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ post.title }}</h2>
+                    <p class="card-text text-muted">
+                        Posted by {{ post.author.username }} on {{ post.date_posted.strftime('%B %d, %Y') }}
+                    </p>
+                    <p class="card-text">{{ post.content[:200] }}...</p>
+                    <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-primary">Read More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Tourism News</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">New Tourist Attraction Opens</h6>
+                                <small class="text-muted">3 days ago</small>
+                            </div>
+                            <p class="mb-1">A new cultural center has opened in Kumasi...</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Tourism Awards 2024</h6>
+                                <small class="text-muted">1 week ago</small>
+                            </div>
+                            <p class="mb-1">Ghana wins Best Tourism Destination in Africa...</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">New Flight Routes</h6>
+                                <small class="text-muted">2 weeks ago</small>
+                            </div>
+                            <p class="mb-1">Direct flights from New York to Accra announced...</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Popular Topics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-primary">Culture</span>
+                        <span class="badge bg-primary">Food</span>
+                        <span class="badge bg-primary">Adventure</span>
+                        <span class="badge bg-primary">History</span>
+                        <span class="badge bg-primary">Nature</span>
+                        <span class="badge bg-primary">Events</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

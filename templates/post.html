@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <article class="card mb-4">
+                <div class="card-body">
+                    <h1 class="card-title">{{ post.title }}</h1>
+                    <p class="text-muted">
+                        Posted by {{ post.author.username }} on {{ post.date_posted.strftime('%B %d, %Y') }}
+                    </p>
+                    <div class="card-text">
+                        {{ post.content | safe }}
+                    </div>
+                </div>
+            </article>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Comments</h3>
+                </div>
+                <div class="card-body">
+                    {% if current_user.is_authenticated %}
+                    <form method="POST" action="{{ url_for('comment', post_id=post.id) }}" class="mb-4">
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Add a comment</label>
+                            <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post Comment</button>
+                    </form>
+                    {% else %}
+                    <p class="text-muted">Please <a href="{{ url_for('login') }}">login</a> to leave a comment.</p>
+                    {% endif %}
+
+                    {% for comment in post.comments %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <p class="card-text">{{ comment.content }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    By {{ comment.author.username }} on {{ comment.date_posted.strftime('%B %d, %Y') }}
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">About the Author</h5>
+                </div>
+                <div class="card-body">
+                    <h6>{{ post.author.username }}</h6>
+                    <p class="text-muted">Member since {{ post.author.date_joined.strftime('%B %Y') }}</p>
+                    <p>Total posts: {{ post.author.blog_posts|length }}</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Related Posts</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for related_post in post.author.blog_posts[:3] %}
+                            {% if related_post.id != post.id %}
+                            <a href="{{ url_for('post', post_id=related_post.id) }}" class="list-group-item list-group-item-action">
+                                <h6 class="mb-1">{{ related_post.title }}</h6>
+                                <small class="text-muted">{{ related_post.date_posted.strftime('%B %d, %Y') }}</small>
+                            </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
