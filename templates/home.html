@@ -9,7 +9,7 @@
         <p class="lead">Discover the rich culture, beautiful landscapes, and vibrant cities of Ghana.</p>
         <hr class="my-4">
         <p>Plan your perfect Ghanaian adventure with our comprehensive travel guide.</p>
-        <a class="btn btn-primary btn-lg" href="{{ url_for('destinations') }}" role="button">Explore Destinations</a>
+        <a class="btn btn-primary btn-lg" href="url_for('static', filename='images\banner.jpg')" role="button">Explore Destinations</a>
     </div>
 
     <div class="row mt-5">
@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Popular Destinations</h5>
                     <p class="card-text">Discover Ghana's most visited attractions and hidden gems.</p>
-                    <a href="{{ url_for('destinations') }}" class="btn btn-outline-primary">View Destinations</a>
+                    <a href="/templates/destinations.html" class="btn btn-outline-primary">View Destinations</a>
                 </div>
             </div>
         </div>
@@ -49,7 +49,7 @@
                     <h5 class="card-title">Featured Destination</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="{{ url_for('static', filename='images/cape-coast.jpg') }}" class="img-fluid rounded" alt="Cape Coast Castle">
+                            <img src="{{ url_for('static', filename='images\memoria.jpg') }}" class="img-fluid rounded" alt="Cape Coast Castle">
                         </div>
                         <div class="col-md-6">
                             <h3>Cape Coast Castle</h3>
