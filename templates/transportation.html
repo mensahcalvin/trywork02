@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Transportation{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Transportation Options in Ghana</h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Select Transportation Type</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="transportType" class="form-label">Choose your preferred transportation:</label>
+                        <select class="form-select" id="transportType" onchange="showTransportDetails(this.value)">
+                            <option value="">Select an option</option>
+                            <option value="trotro">Trotro (Minibus)</option>
+                            <option value="taxi">Taxi</option>
+                            <option value="bus">Intercity Bus</option>
+                            <option value="train">Train</option>
+                            <option value="rental">Car Rental</option>
+                            <option value="domestic">Domestic Flights</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Transportation Details</h5>
+                </div>
+                <div class="card-body">
+                    <div id="transportDetails">
+                        <p class="text-muted">Please select a transportation type to view details.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showTransportDetails(type) {
+    const detailsDiv = document.getElementById('transportDetails');
+    let content = '';
+    
+    switch(type) {
+        case 'trotro':
+            content = `
+                <h6>Trotro (Minibus)</h6>
+                <p>The most common form of public transportation in Ghana. Affordable and widely available.</p>
+                <ul>
+                    <li>Cost: 2-10 GHC depending on distance</li>
+                    <li>Operating Hours: 5:00 AM - 10:00 PM</li>
+                    <li>Best for: Short to medium distance travel within cities</li>
+                </ul>
+            `;
+            break;
+        case 'taxi':
+            content = `
+                <h6>Taxi</h6>
+                <p>Convenient for direct point-to-point travel.</p>
+                <ul>
+                    <li>Cost: 20-100 GHC depending on distance</li>
+                    <li>Available 24/7</li>
+                    <li>Best for: Comfortable and direct travel</li>
+                </ul>
+            `;
+            break;
+        case 'bus':
+            content = `
+                <h6>Intercity Bus</h6>
+                <p>Comfortable long-distance travel between major cities.</p>
+                <ul>
+                    <li>Cost: 30-150 GHC depending on distance</li>
+                    <li>Operating Hours: 5:00 AM - 8:00 PM</li>
+                    <li>Best for: Long-distance travel between cities</li>
+                </ul>
+            `;
+            break;
+        case 'train':
+            content = `
+                <h6>Train</h6>
+                <p>Limited but scenic rail travel options.</p>
+                <ul>
+                    <li>Cost: 20-80 GHC depending on class and distance</li>
+                    <li>Operating Hours: Varies by route</li>
+                    <li>Best for: Scenic travel between major cities</li>
+                </ul>
+            `;
+            break;
+        case 'rental':
+            content = `
+                <h6>Car Rental</h6>
+                <p>Flexible travel option for exploring at your own pace.</p>
+                <ul>
+                    <li>Cost: 200-500 GHC per day</li>
+                    <li>Available 24/7</li>
+                    <li>Best for: Independent travel and exploration</li>
+                </ul>
+            `;
+            break;
+        case 'domestic':
+            content = `
+                <h6>Domestic Flights</h6>
+                <p>Fast travel between major cities.</p>
+                <ul>
+                    <li>Cost: 500-2000 GHC depending on route</li>
+                    <li>Operating Hours: Varies by airline</li>
+                    <li>Best for: Quick travel between major cities</li>
+                </ul>
+            `;
+            break;
+        default:
+            content = '<p class="text-muted">Please select a transportation type to view details.</p>';
+    }
+    
+    detailsDiv.innerHTML = content;
+}
+</script>
+{% endblock %} 

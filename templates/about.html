@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">About Explore Ghana</h1>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Our Mission</h5>
+                    <p class="card-text">
+                        Explore Ghana is a comprehensive tourism platform designed to showcase the rich cultural heritage,
+                        beautiful landscapes, and vibrant cities of Ghana. Our mission is to make it easier for tourists
+                        to discover and experience the best that Ghana has to offer.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Project Team</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">Calvin Kaledzi</h6>
+                                    <p class="card-text">Project Lead</p>
+                                    <p class="card-text"><small class="text-muted">01260268c</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">Ebenezer Zikpi</h6>
+                                    <p class="card-text">Backend Developer</p>
+                                    <p class="card-text"><small class="text-muted">01240331c</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">Godfred Kwesi Ablorh</h6>
+                                    <p class="card-text">Frontend Developer</p>
+                                    <p class="card-text"><small class="text-muted">01240453c</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">Enoch Dordzi</h6>
+                                    <p class="card-text">Database Specialist</p>
+                                    <p class="card-text"><small class="text-muted">01240095c</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Contact Us</h5>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Project Information</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Project Name:</strong> Explore Ghana
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Group Name:</strong> IT Innovators
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Date:</strong> April 3, 2025
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Version:</strong> 0.1
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
