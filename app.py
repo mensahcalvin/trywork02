@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -43,6 +43,23 @@ class Comment(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     post_id = db.Column(db.Integer, db.ForeignKey('blog_post.id'), nullable=False)
+
+# Tourist Site Model
+class TouristSite(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    region = db.Column(db.String(50), nullable=False)
+    category = db.Column(db.String(50), nullable=False)  # e.g., Historical, Natural, Cultural
+    image_url = db.Column(db.String(200))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+    rating = db.Column(db.Float)
+    entry_fee = db.Column(db.String(50))
+    opening_hours = db.Column(db.String(100))
+    best_time_to_visit = db.Column(db.String(100))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -153,6 +170,143 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/search')
+def search():
+    query = request.args.get('q', '')
+    if query:
+        # Search in destinations, accommodations, and blog posts
+        destinations = BlogPost.query.filter(
+            (BlogPost.title.ilike(f'%{query}%')) | 
+            (BlogPost.content.ilike(f'%{query}%'))
+        ).all()
+        return render_template('search_results.html', query=query, results=destinations)
+    return redirect(url_for('home'))
+
+# API Routes for Tourist Sites
+@app.route('/api/tourist-sites', methods=['GET'])
+def get_tourist_sites():
+    # Get query parameters for filtering
+    region = request.args.get('region')
+    category = request.args.get('category')
+    min_rating = request.args.get('min_rating')
+    
+    # Start with base query
+    query = TouristSite.query
+    
+    # Apply filters if provided
+    if region:
+        query = query.filter(TouristSite.region == region)
+    if category:
+        query = query.filter(TouristSite.category == category)
+    if min_rating:
+        query = query.filter(TouristSite.rating >= float(min_rating))
+    
+    # Get all matching sites
+    sites = query.all()
+    
+    # Convert to JSON
+    sites_json = [{
+        'id': site.id,
+        'name': site.name,
+        'description': site.description,
+        'location': site.location,
+        'region': site.region,
+        'category': site.category,
+        'image_url': site.image_url,
+        'latitude': site.latitude,
+        'longitude': site.longitude,
+        'rating': site.rating,
+        'entry_fee': site.entry_fee,
+        'opening_hours': site.opening_hours,
+        'best_time_to_visit': site.best_time_to_visit
+    } for site in sites]
+    
+    return jsonify(sites_json)
+
+@app.route('/api/tourist-sites/<int:site_id>', methods=['GET'])
+def get_tourist_site(site_id):
+    site = TouristSite.query.get_or_404(site_id)
+    return jsonify({
+        'id': site.id,
+        'name': site.name,
+        'description': site.description,
+        'location': site.location,
+        'region': site.region,
+        'category': site.category,
+        'image_url': site.image_url,
+        'latitude': site.latitude,
+        'longitude': site.longitude,
+        'rating': site.rating,
+        'entry_fee': site.entry_fee,
+        'opening_hours': site.opening_hours,
+        'best_time_to_visit': site.best_time_to_visit
+    })
+
+@app.route('/api/tourist-sites/regions', methods=['GET'])
+def get_regions():
+    regions = db.session.query(TouristSite.region).distinct().all()
+    return jsonify([region[0] for region in regions])
+
+@app.route('/api/tourist-sites/categories', methods=['GET'])
+def get_categories():
+    categories = db.session.query(TouristSite.category).distinct().all()
+    return jsonify([category[0] for category in categories])
+
+# Sample data insertion route (for development only)
+@app.route('/api/tourist-sites/seed', methods=['POST'])
+def seed_tourist_sites():
+    sample_sites = [
+        {
+            'name': 'Cape Coast Castle',
+            'description': 'A UNESCO World Heritage Site, this castle was a major slave trading post.',
+            'location': 'Cape Coast',
+            'region': 'Central Region',
+            'category': 'Historical',
+            'image_url': 'https://example.com/cape-coast-castle.jpg',
+            'latitude': 5.1036,
+            'longitude': -1.2417,
+            'rating': 4.8,
+            'entry_fee': 'GHC 50',
+            'opening_hours': '9:00 AM - 5:00 PM',
+            'best_time_to_visit': 'November to March'
+        },
+        {
+            'name': 'Kakum National Park',
+            'description': 'Famous for its canopy walkway through the rainforest.',
+            'location': 'Cape Coast',
+            'region': 'Central Region',
+            'category': 'Natural',
+            'image_url': 'https://example.com/kakum-park.jpg',
+            'latitude': 5.3500,
+            'longitude': -1.3833,
+            'rating': 4.7,
+            'entry_fee': 'GHC 60',
+            'opening_hours': '8:00 AM - 4:00 PM',
+            'best_time_to_visit': 'All year round'
+        },
+        {
+            'name': 'Mole National Park',
+            'description': 'Ghana\'s largest wildlife refuge, home to elephants, antelopes, and more.',
+            'location': 'Larabanga',
+            'region': 'Northern Region',
+            'category': 'Natural',
+            'image_url': 'https://example.com/mole-park.jpg',
+            'latitude': 9.3000,
+            'longitude': -1.8500,
+            'rating': 4.6,
+            'entry_fee': 'GHC 80',
+            'opening_hours': '6:00 AM - 6:00 PM',
+            'best_time_to_visit': 'December to April'
+        }
+    ]
+    
+    for site_data in sample_sites:
+        site = TouristSite(**site_data)
+        db.session.add(site)
+    
+    db.session.commit()
+    return jsonify({'message': 'Sample tourist sites added successfully'})
 
 if __name__ == '__main__':
     with app.app_context():
