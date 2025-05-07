@@ -244,7 +244,7 @@
                             <p class="card-text">{{ post.content[:200] }}...</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ post.author.avatar_url or 'https://via.placeholder.com/30' }}" class="rounded-circle me-2" width="30" height="30" alt="Author">
+                                    <img src="{{ url_for('static', filename='images/musum.jpg') }}" class="rounded-circle me-2" width="30" height="30" alt="Author">
                                     <span>{{ post.author.username }}</span>
                                 </div>
                                 <div class="d-flex align-items-center">
