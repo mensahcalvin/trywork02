@@ -263,7 +263,7 @@
                         <a class="nav-link {% if request.endpoint == 'accommodations' %}active{% endif %}" href="{{ url_for('accommodations') }}">Accommodations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'transportation' %}active{% endif %}" href="{{ url_for('transportation') }}">Transportation</a>
+                        <a class="nav-link {% if request.endpoint == 'transportation' %}active{% endif %}" href="{{ url_for('events') }}">event</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-bs-toggle="dropdown">
@@ -271,7 +271,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item {% if request.endpoint == 'events' %}active{% endif %}" href="{{ url_for('events') }}">Events</a>
+                                <a class="dropdown-item {% if request.endpoint == 'events' %}active{% endif %}" href="{{ url_for('transportation') }}">transportation</a>
                             </li>
                             <li>
                                 <a class="dropdown-item {% if request.endpoint == 'itinerary' %}active{% endif %}" href="{{ url_for('itinerary') }}">Itinerary</a>
@@ -364,7 +364,7 @@
                     <h5 class="mb-3">Contact Us</h5>
                     <ul class="list-unstyled text-muted">
                         <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Accra, Ghana</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i> +233 XX XXX XXXX</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> +233 202 4556 789</li>
                         <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@ghanatourism.com</li>
                     </ul>
                 </div>
