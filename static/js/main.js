@@ -1,12 +1,98 @@
 // Custom JavaScript for Explore Ghana
 
-// Initialize tooltips
-document.addEventListener('DOMContentLoaded', function() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
+// Theme Management
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle?.querySelector('i');
+
+// Initialize theme from localStorage
+function initializeTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+}
+
+// Update theme icon based on current theme
+function updateThemeIcon(theme) {
+    if (!themeIcon) return;
+    themeIcon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+}
+
+// Toggle theme
+function toggleTheme() {
+    if (!themeToggle) return;
+    
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
     });
-});
+}
+
+// Dropdown Management
+function initializeDropdowns() {
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    let isOpen = false;
+
+    if (!dropdownToggle || !dropdownMenu) return;
+
+    // Add animation classes
+    dropdownMenu.classList.add('dropdown-animation');
+
+    // Custom dropdown toggle
+    dropdownToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        isOpen = !isOpen;
+        
+        if (isOpen) {
+            dropdownMenu.style.display = 'block';
+            dropdownMenu.style.opacity = '0';
+            dropdownMenu.style.transform = 'translateY(-10px)';
+            
+            // Trigger animation
+            setTimeout(() => {
+                dropdownMenu.style.opacity = '1';
+                dropdownMenu.style.transform = 'translateY(0)';
+            }, 10);
+        } else {
+            dropdownMenu.style.opacity = '0';
+            dropdownMenu.style.transform = 'translateY(-10px)';
+            
+            // Hide after animation
+            setTimeout(() => {
+                dropdownMenu.style.display = 'none';
+            }, 300);
+        }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            isOpen = false;
+            dropdownMenu.style.opacity = '0';
+            dropdownMenu.style.transform = 'translateY(-10px)';
+            
+            setTimeout(() => {
+                dropdownMenu.style.display = 'none';
+            }, 300);
+        }
+    });
+
+    // Add hover effect for dropdown items
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(5px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+}
 
 // Form validation
 function validateForm(formId) {
@@ -63,16 +149,18 @@ function scrollToTop() {
 }
 
 // Add scroll to top button
-window.addEventListener('scroll', function() {
+function initializeScrollToTop() {
     const scrollButton = document.getElementById('scrollToTop');
     if (!scrollButton) return;
 
-    if (window.pageYOffset > 300) {
-        scrollButton.style.display = 'block';
-    } else {
-        scrollButton.style.display = 'none';
-    }
-});
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            scrollButton.style.display = 'block';
+        } else {
+            scrollButton.style.display = 'none';
+        }
+    });
+}
 
 // Mobile menu toggle
 function toggleMobileMenu() {
@@ -91,7 +179,6 @@ function handleFormSubmit(formId, successCallback, errorCallback) {
         e.preventDefault();
         
         if (validateForm(formId)) {
-            // Here you would typically make an AJAX call
             if (successCallback) successCallback();
         } else {
             if (errorCallback) errorCallback();
@@ -130,15 +217,23 @@ function createItinerary() {
     console.log('Creating itinerary:', itinerary);
 }
 
-// Add event listeners
+// Initialize all functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Add scroll to top button
-    const scrollButton = document.createElement('button');
-    scrollButton.id = 'scrollToTop';
-    scrollButton.className = 'btn btn-primary position-fixed bottom-0 end-0 m-3';
-    scrollButton.innerHTML = '↑';
-    scrollButton.onclick = scrollToTop;
-    document.body.appendChild(scrollButton);
+    // Initialize theme
+    initializeTheme();
+    toggleTheme();
+
+    // Initialize dropdowns
+    initializeDropdowns();
+
+    // Initialize scroll to top
+    initializeScrollToTop();
+
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
     // Initialize form handlers
     handleFormSubmit('loginForm', 
@@ -150,4 +245,12 @@ document.addEventListener('DOMContentLoaded', function() {
         () => console.log('Registration successful'),
         () => console.log('Registration failed')
     );
+
+    // Add scroll to top button to DOM
+    const scrollButton = document.createElement('button');
+    scrollButton.id = 'scrollToTop';
+    scrollButton.className = 'btn btn-primary position-fixed bottom-0 end-0 m-3';
+    scrollButton.innerHTML = '↑';
+    scrollButton.onclick = scrollToTop;
+    document.body.appendChild(scrollButton);
 }); 

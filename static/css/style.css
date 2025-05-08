@@ -1,16 +1,159 @@
-/* Custom styles for Explore Ghana */
 
-/* General styles */
-body {
-    background-color: #f8f9fa;
-}
-
+/* Navbar Styles */
 .navbar {
+    background: linear-gradient(135deg, #4CAF50, #2196F3) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,.1);
 }
 
-/* Card styles */
+.navbar-brand, .nav-link {
+    color: white !important;
+}
+
+.nav-link {
+    padding: 8px 15px !important;
+    margin: 0 2px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 5px;
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Dropdown Styles */
+.dropdown-menu {
+    display: none;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    transition: all 0.2s ease;
+    padding: 8px 20px;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.dropdown-item.active {
+    background-color: rgba(76, 175, 80, 0.2);
+    color: var(--text-color);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.theme-toggle i {
+    font-size: 1.2rem;
+}
+
+/* Social Links */
+.social-links a {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.social-links i.fa-facebook {
+    color: #1877f2 !important;
+}
+
+.social-links i.fa-twitter {
+    color: #1da1f2 !important;
+}
+
+.social-links i.fa-instagram {
+    color: #e4405f !important;
+}
+
+.social-links i.fa-youtube {
+    color: #ff0000 !important;
+}
+
+.social-links i.fa-tiktok {
+    color: #000000 !important;
+}
+
+/* Dark Theme Styles */
+[data-theme="dark"] .nav-link {
+    color: #FFD700 !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+    color: #FFA500 !important;
+    background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
+[data-theme="dark"] .nav-link.active {
+    color: #FFA500 !important;
+    background-color: rgba(255, 215, 0, 0.2) !important;
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: #FFD700 !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    color: #FFA500 !important;
+    background-color: rgba(255, 215, 0, 0.1) !important;
+}
+
+[data-theme="dark"] .navbar-brand {
+    color: #FFD700 !important;
+}
+
+[data-theme="dark"] .footer a {
+    color: #FFD700 !important;
+}
+
+[data-theme="dark"] .footer a:hover {
+    color: #FFA500 !important;
+}
+
+[data-theme="dark"] .footer h5 {
+    color: #FFD700 !important;
+}
+
+[data-theme="dark"] .footer span {
+    color: #FFD700 !important;
+}
+
+[data-theme="dark"] .dropdown-menu {
+    background-color: #2d2d2d;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Styles */
 .card {
+    background-color: var(--card-bg);
     box-shadow: 0 2px 4px rgba(0,0,0,.1);
     transition: transform 0.2s;
 }
@@ -19,7 +162,7 @@ body {
     transform: translateY(-5px);
 }
 
-/* Button styles */
+/* Button Styles */
 .btn-primary {
     background-color: #0d6efd;
     border-color: #0d6efd;
@@ -30,24 +173,35 @@ body {
     border-color: #0a58ca;
 }
 
-/* Form styles */
+/* Form Styles */
 .form-control:focus {
     border-color: #0d6efd;
     box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
 }
 
-/* Map container */
-#map {
-    border-radius: 8px;
-    overflow: hidden;
+/* Footer Styles */
+.footer {
+    background-color: var(--footer-bg) !important;
 }
 
-/* List group items */
-.list-group-item:hover {
-    background-color: #f8f9fa;
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .navbar-nav .nav-link {
+        padding: 8px 15px !important;
+    }
+    .dropdown-menu {
+        background-color: var(--bg-color);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .dropdown-item {
+        color: var(--text-color);
+    }
+    .dropdown-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
 }
 
-/* Custom jumbotron */
+/* Additional Components */
 .jumbotron {
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../images/ghana-banner.jpg');
     background-size: cover;
@@ -57,15 +211,55 @@ body {
     border-radius: 8px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .jumbotron {
-        padding: 2rem 1rem;
-    }
-    
-    .card {
-        margin-bottom: 1rem;
-    }
+#map {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Utility Classes */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.alert {
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.badge {
+    padding: 0.5em 0.75em;
+    font-weight: 500;
+}
+
+.progress {
+    height: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.pagination {
+    margin-bottom: 1rem;
+}
+
+.pagination .page-link {
+    color: var(--text-color);
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(0,0,0,.1);
 }
 
 /* Custom select styles */
