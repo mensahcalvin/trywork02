@@ -262,8 +262,11 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint == 'accommodations' %}active{% endif %}" href="{{ url_for('accommodations') }}">Accommodations</a>
                     </li>
+                    <li>
+                        <a class="nav-link {% if request.endpoint == 'blog' %}active{% endif %}" href="{{ url_for('blog') }}">Blog</a>
+                    </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'transportation' %}active{% endif %}" href="{{ url_for('events') }}">event</a>
+                        <a class="nav-link {% if request.endpoint == 'events' %}active{% endif %}" href="{{ url_for('events') }}">event</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="moreDropdown" role="button" data-bs-toggle="dropdown">
@@ -271,7 +274,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a class="dropdown-item {% if request.endpoint == 'events' %}active{% endif %}" href="{{ url_for('transportation') }}">transportation</a>
+                                <a class="dropdown-item {% if request.endpoint == 'transportation' %}active{% endif %}" href="{{ url_for('transportation') }}">transportation</a>
                             </li>
                             <li>
                                 <a class="dropdown-item {% if request.endpoint == 'itinerary' %}active{% endif %}" href="{{ url_for('itinerary') }}">Itinerary</a>
@@ -279,9 +282,7 @@
                             <li>
                                 <a class="dropdown-item {% if request.endpoint == 'map' %}active{% endif %}" href="{{ url_for('map') }}">Map</a>
                             </li>
-                            <li>
-                                <a class="dropdown-item {% if request.endpoint == 'blog' %}active{% endif %}" href="{{ url_for('blog') }}">Blog</a>
-                            </li>
+                           
                             <li>
                                 <a class="dropdown-item {% if request.endpoint == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About</a>
                             </li>
