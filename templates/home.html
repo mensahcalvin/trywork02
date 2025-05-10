@@ -6,14 +6,16 @@
 <div class="hero-section text-center py-5">
     <h1 class="display-4 mb-4">Welcome to Ghana</h1>
     <p class="lead mb-4">Discover the rich culture, beautiful landscapes, and warm hospitality of West Africa's hidden gem.</p>
-    <a href="{{ url_for('destinations') }}" class="btn btn-primary btn-lg">Start Exploring</a>
+    <a href="{{ url_for('destinations') }}" class="btn btn-primary btn-lg" style="margin-top: 20px;">Start Exploring</a>
+    <div class="banner-image" style="margin-top: 40px;">
+        <img src="{{url_for('static', filename='images/banner.jpg')}}" alt="..." style="width: 100%; height: 300px; object-fit: cover;">
+    </div>
 </div>
 
 <div class="featured-sections py-5">
     <div class="row g-4">
         <div class="col-md-4">
-            <div class="card h-100">
-                <img src="url_for('static', filename='images/beach-2.jpg')" class="card-img-top" alt="Ghana Beach">
+            <div class="card h-200">
                 <div class="card-body">
                     <h5 class="card-title">Beautiful Beaches</h5>
                     <p class="card-text">Explore pristine beaches along Ghana's stunning coastline.</p>
@@ -23,7 +25,6 @@
         </div>
         <div class="col-md-4">
             <div class="card h-100">
-                <img src="url_for('static', filename='images/Ghanaian-culture/culture03.jpg')" class="card-img-top" alt="Ghana Culture">
                 <div class="card-body">
                     <h5 class="card-title">Rich Culture</h5>
                     <p class="card-text">Immerse yourself in Ghana's vibrant traditions and festivals.</p>
@@ -33,7 +34,6 @@
         </div>
         <div class="col-md-4">
             <div class="card h-100">
-                <img src="url_for('static', filename='images/mole-national-park.jpg')" class="card-img-top" alt="Ghana Wildlife">
                 <div class="card-body">
                     <h5 class="card-title">Wildlife & Nature</h5>
                     <p class="card-text">Experience the diverse wildlife and natural wonders of Ghana.</p>
